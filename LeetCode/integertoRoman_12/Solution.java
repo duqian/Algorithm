@@ -43,7 +43,6 @@ public class Solution {
 			num=num%k;
 			k=k/10;
 		}
-		
 		return result.toString();
     }
 	
