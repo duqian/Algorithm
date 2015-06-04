@@ -10,36 +10,36 @@ public class Solution {
 		if(strs.length==0) return "";
 		if(strs.length==1) return strs[0];
 		
-		int index=CommonPrefix(strs,0,strs.length-1);
-		if(index!=-1) return strs[0].substring(0,index);
-		else return "";
+		return CommonPrefix(strs,0,strs.length-1);
     }
 	
-	public int CommonPrefix(String[] strs,int start,int end){
-		if(start==end) return strs[start].length();
+	public String CommonPrefix(String[] strs,int start,int end){
+		if(start==end) return strs[start];
 		if(start+1==end){  //返回两个字符串的最长公共前缀的大小
-			int len;
-			String str1=strs[start];
-			String str2=strs[end];
-			if(str1.length()>str2.length()){
+			return TwoCommon(strs[start],strs[end]);
+		}
+		
+		int mid=(end-start)/2+start;
+		return TwoCommon(CommonPrefix(strs,start,mid),CommonPrefix(strs,mid+1,end));
+	}
+	public String TwoCommon(String str1,String str2){
+		    int len;
+		    if(str1.length()>str2.length()){
 				len=str2.length();
 			}else{
 				len=str1.length();
 			}
 			
-			for(int i=0;i<len;i++){
-				if(str1.charAt(i)!=str2.charAt(i)) return i;
+			int i;
+			for(i=0;i<len;i++){
+				if(str1.charAt(i)!=str2.charAt(i)) break;
 			}
-		}
-		
-		int mid=(end-start)/2+start;
-		int len1=CommonPrefix(strs,start,mid);
-		int len2=CommonPrefix(strs,mid+1,end);
-		return len1>len2?len2:len1;
+			return str1.substring(0,i);	
 	}
 	
+	
 	public static void main(String[] argc){
-		String[] strs={"abcd","abcs","abd"};
+		String[] strs={"ab","aa"};
 		System.out.println(new Solution().longestCommonPrefix(strs));
 	}
 }
